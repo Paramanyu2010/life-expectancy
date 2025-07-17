@@ -99,8 +99,45 @@ window.Quarto = {
 </header>
 
 
-<p>Longevity is a complex and highly personal aspect of human life. This analysis uses data from Barfort, Klemmensen, and Larsen’s (2020) study of gubernatorial candidates in the United States to explore the potential relationship between a candidate’s age at election and their subsequent lifespan. A potential weakness of this model is that the relationships between candidate characteristics and longevity may not be stable across different historical periods, potentially affecting the generalizability of our findings to present-day or future candidates.</p>
+<p>Longevity is a complex and highly personal aspect of human life. This analysis uses data from Barfort, Klemmensen, and Larsen’s (2020) study of gubernatorial candidates in the United States to explore the potential relationship between a candidate’s age at election and their subsequent lifespan. A potential weakness of this model is that the relationships between candidate characteristics and longevity may not be stable across different historical periods, potentially affecting the generalizability of our findings to present-day or future candidates. We model a candidate’s longevity (years lived after the election), a continuous variable, as a linear function of their sex and age at the time of the election.</p>
 <p><span class="math display">\[Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_n X_n + \epsilon\]</span> with <span class="math inline">\(\epsilon \sim \mathcal{N}(0, \sigma^2)\)</span>.</p>
+<p><span class="math display">\[
+\hat{Y}_i = 40 - 0.5 \cdot \text{age}_i - 2.3 \cdot \text{won}_i + 0.04 \cdot \text{year}_i
+\]</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Lower CI</th>
+<th style="text-align: right;">Upper CI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">58.31</td>
+<td style="text-align: right;">53.26</td>
+<td style="text-align: right;">63.36</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sexMale</td>
+<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">-4.56</td>
+<td style="text-align: right;">4.85</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">election_age</td>
+<td style="text-align: right;">-0.68</td>
+<td style="text-align: right;">-0.71</td>
+<td style="text-align: right;">-0.65</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 
 </main>
 <!-- /main column -->

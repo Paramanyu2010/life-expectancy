@@ -14,7 +14,27 @@ library(tidymodels)
 library(broom)
 ```
 
-Longevity is a complex and highly personal aspect of human life. This analysis uses data from Barfort, Klemmensen, and Larsen's (2020) study of gubernatorial candidates in the United States to explore the potential relationship between a candidate's age at election and their subsequent lifespan. A potential weakness of this model is that the relationships between candidate characteristics and longevity may not be stable across different historical periods, potentially affecting the generalizability of our findings to present-day or future candidates.
+Longevity is a complex and highly personal aspect of human life. This analysis uses data from Barfort, Klemmensen, and Larsen's (2020) study of gubernatorial candidates in the United States to explore the potential relationship between a candidate's age at election and their subsequent lifespan. A potential weakness of this model is that the relationships between candidate characteristics and longevity may not be stable across different historical periods, potentially affecting the generalizability of our findings to present-day or future candidates. We model a candidate's longevity (years lived after the election), a continuous variable, as a linear function of their sex and age at the time of the election.
 
 $$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_n X_n + \epsilon$$
 with $\epsilon \sim \mathcal{N}(0, \sigma^2)$.
+
+$$
+\hat{Y}_i = 40 - 0.5 \cdot \text{age}_i - 2.3 \cdot \text{won}_i + 0.04 \cdot \text{year}_i
+$$
+
+
+```{r}
+#| cache: true
+fit_years <- linear_reg(engine = "lm") |> 
+  fit(lived_after ~ sex + election_age, data = governors)
+```
+
+
+```{r}
+library(knitr)
+
+tidy(fit_years, conf.int = TRUE) |>
+  select(term, estimate, conf.low, conf.high) |>
+  kable(digits = 2, col.names = c("Variable", "Estimate", "Lower CI", "Upper CI"))
+```
