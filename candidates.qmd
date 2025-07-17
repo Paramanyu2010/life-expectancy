@@ -1,0 +1,15 @@
+---
+title: "Life Expectancy for Political Candidates"
+author: "Paramanyu Gupta"
+format: html
+execute: 
+  echo: false
+---
+
+```{r}
+#| message: false
+library(tidyverse)
+library(primer.data)
+```
+
+Longevity is a complex and highly personal aspect of human life. This analysis uses data from Barfort, Klemmensen, and Larsen's (2020) study of gubernatorial candidates in the United States to explore the potential relationship between a candidate's age at election and their subsequent lifespan.
