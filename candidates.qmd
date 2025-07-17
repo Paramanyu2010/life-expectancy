@@ -45,7 +45,7 @@ tidy(fit_years, conf.int = TRUE) |>
 library(ggplot2)
 
 predictions <- governors %>%
-  mutate(.pred = predict(fit_years, new_data = x)$.pred)
+  mutate(.pred = predict(fit_years, new_data = governors)$.pred)
 
 ggplot(predictions, aes(x = election_age, y = .pred, color = sex)) +
   geom_point(alpha = 0.3) +
