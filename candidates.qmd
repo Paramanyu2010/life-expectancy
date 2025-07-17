@@ -10,6 +10,11 @@ execute:
 #| message: false
 library(tidyverse)
 library(primer.data)
+library(tidymodels)
+library(broom)
 ```
 
-Longevity is a complex and highly personal aspect of human life. This analysis uses data from Barfort, Klemmensen, and Larsen's (2020) study of gubernatorial candidates in the United States to explore the potential relationship between a candidate's age at election and their subsequent lifespan.
+Longevity is a complex and highly personal aspect of human life. This analysis uses data from Barfort, Klemmensen, and Larsen's (2020) study of gubernatorial candidates in the United States to explore the potential relationship between a candidate's age at election and their subsequent lifespan. A potential weakness of this model is that the relationships between candidate characteristics and longevity may not be stable across different historical periods, potentially affecting the generalizability of our findings to present-day or future candidates.
+
+$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_n X_n + \epsilon$$
+with $\epsilon \sim \mathcal{N}(0, \sigma^2)$.
