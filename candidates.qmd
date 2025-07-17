@@ -12,9 +12,10 @@ library(tidyverse)
 library(primer.data)
 library(tidymodels)
 library(broom)
+library(marginaleffects)
 ```
 
-Longevity is a complex and highly personal aspect of human life. This analysis uses data from Barfort, Klemmensen, and Larsen's (2020) study of gubernatorial candidates in the United States to explore the potential relationship between a candidate's age at election and their subsequent lifespan. A potential weakness of this model is that the relationships between candidate characteristics and longevity may not be stable across different historical periods, potentially affecting the generalizability of our findings to present-day or future candidates. We model a candidate's longevity (years lived after the election), a continuous variable, as a linear function of their sex and age at the time of the election.
+Longevity is a complex and highly personal aspect of human life. This analysis uses data from Barfort, Klemmensen, and Larsen's (2020) study of gubernatorial candidates in the United States to explore the potential relationship between a candidate's age at election and their subsequent lifespan. A potential weakness of this model is that the relationships between candidate characteristics and longevity may not be stable across different historical periods, potentially affecting the generalizability of our findings to present-day or future candidates. We model a candidate's longevity (years lived after the election), a continuous variable, as a linear function of their sex and age at the time of the election. Our analysis indicates that an older age at election is associated with a decrease in predicted years lived afterward for both sexes, with the effect being more pronounced for male candidates (e.g., a 50-year-old female candidate is predicted to live approximately X years (95% CI: [Y, Z]) compared to a 50-year-old male candidate predicted to live roughly A years (95% CI: [B, C])).
 
 $$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_n X_n + \epsilon$$
 with $\epsilon \sim \mathcal{N}(0, \sigma^2)$.
@@ -37,4 +38,23 @@ library(knitr)
 tidy(fit_years, conf.int = TRUE) |>
   select(term, estimate, conf.low, conf.high) |>
   kable(digits = 2, col.names = c("Variable", "Estimate", "Lower CI", "Upper CI"))
+```
+
+
+```{r}
+library(ggplot2)
+
+predictions <- governors %>%
+  mutate(.pred = predict(fit_years, new_data = x)$.pred)
+
+ggplot(predictions, aes(x = election_age, y = .pred, color = sex)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "loess", se = FALSE) +
+  labs(
+    title = "Predicted Years Lived After Election by Age and Sex",
+    subtitle = "Smoothed predictions from the fitted model",
+    x = "Age at Election",
+    y = "Predicted Years Lived",
+    color = "Sex"
+  )
 ```
